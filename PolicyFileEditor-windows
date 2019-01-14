@@ -1,0 +1,31 @@
+
+
+ 
+Install-Module -Name PolicyFileEditor
+
+Import-module -Name PolicyFileEditor
+ $MachineDir = "$env:windir\system32\GroupPolicy\Machine\registry.pol"
+ $UserDir = "$env:windir\system32\GroupPolicy\User\registry.pol"
+
+ Get-PolicyFileEntry -Path $MachineDir -All
+
+Get-PolicyFileEntry -Path $UserDir -All
+Get-PolicyFileEntry -Path $MachineDir -All
+
+$RegData = '1'
+$RegName = 'Set time limit for disconnected sessions'
+$RegType = 'Dword'
+$RegPath = 'Computer Configuration\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Session Time Limits'
+Get-PolicyFileEntry -Path $MachineDir -All
+Set-PolicyFileEntry -Path $MachineDir -Key $RegPath -ValueName $RegName -Data $RegData -Type $RegType
+
+gpupdate /force
+
+Remove-PolicyFileEntry -Path $MachineDir
+
+eg.
+cmdlet Remove-PolicyFileEntry at command pipeline position 1
+Supply values for the following parameters:
+Key: Computer Configuration\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session H
+ost\Session Time Limits
+ValueName: Session Time Limits
