@@ -34,9 +34,15 @@ ValueName: Session Time Limits
 Latest
 -------
 
+
+Import-module -Name PolicyFileEditor
+
+$MachineDir = "$env:windir\system32\GroupPolicy\Machine\registry.pol"
+
 $RegPath = 'SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services'
 $RegName = 'MaxDisconnectionTime'
 $RegData = '1800000'
 $RegType = 'DWORD'
 Set-PolicyFileEntry -Path $MachineDir -Key $RegPath -ValueName $RegName -Data $RegData -Type $RegType
+
 gpupdate /force
