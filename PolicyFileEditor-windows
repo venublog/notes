@@ -29,3 +29,14 @@ Supply values for the following parameters:
 Key: Computer Configuration\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session H
 ost\Session Time Limits
 ValueName: Session Time Limits
+
+
+Latest
+-------
+
+$RegPath = 'SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services'
+$RegName = 'MaxDisconnectionTime'
+$RegData = '1800000'
+$RegType = 'DWORD'
+Set-PolicyFileEntry -Path $MachineDir -Key $RegPath -ValueName $RegName -Data $RegData -Type $RegType
+gpupdate /force
